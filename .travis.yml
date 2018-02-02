@@ -11,13 +11,12 @@ services:
 
 before_install:
   - docker pull $BUILDER
-  - docker run -v $TRAVIS_BUILD_DIR:/go/src/github.com/2at2/telegacli -w /go/src/github.com/2at2/telegacli $BUILDER /bin/sh -c 'make deps && make ok'
 #  - go get github.com/golang/lint/golint github.com/fzipp/gocyclo
 #  - make deps
 #  - make ok
 
 script:
-  - - docker run -v $TRAVIS_BUILD_DIR:/go/src/github.com/2at2/telegacli -w /go/src/github.com/2at2/telegacli $BUILDER /bin/sh -c 'make build'
+  - docker run -v $TRAVIS_BUILD_DIR:/go/src/github.com/2at2/telegacli -w /go/src/github.com/2at2/telegacli $BUILDER /bin/sh -c 'make deps && make ok && make build'
 #  - make build
   - ls -l
   - ls -l bin/
