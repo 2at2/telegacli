@@ -24,4 +24,3 @@ after_success:
       tag=$(echo "$TRAVIS_BRANCH" | cut -c 9-);
       docker build -t strebul/telegacli:$tag . && docker push strebul/telegacli:$tag;
     fi
-
