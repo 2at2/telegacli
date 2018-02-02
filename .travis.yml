@@ -6,11 +6,16 @@ go:
 os:
   - linux
 
-services:
-  - docker
-
 before_install:
-  - docker pull strebul/go-builder1.9.2-alpine3.6:latest
+  - go get github.com/golang/lint/golint github.com/fzipp/gocyclo
+  - make deps
+  - make ok
 
-install:
-  - docker run -v ${TRAVIS_BUILD_DIR}:/go/src/github.com/2at2/telegaacli -w /go/src/github.com/2at2/telegaacli strebul/go-builder1.9.2-alpine3.6:latest /bin/sh -c 'make deps && make ok && make build'
+script:
+  - make build
+
+before_deploy:
+  - docker build -t strebul/telegacli:latest .
+
+deploy:
+  - docker push strebul/telegacli:latest
