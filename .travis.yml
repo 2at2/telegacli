@@ -6,6 +6,9 @@ go:
 os:
   - linux
 
+services:
+  - docker
+
 before_install:
   - go get github.com/golang/lint/golint github.com/fzipp/gocyclo
   - make deps
@@ -14,8 +17,9 @@ before_install:
 script:
   - make build
 
-before_deploy:
-  - docker build -t strebul/telegacli:latest .
-
-deploy:
-  - docker push strebul/telegacli:latest
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker build -t strebul/telegacli:latest .
+    docker push strebul/telegacli:latest;
+    fi
