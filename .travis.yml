@@ -16,6 +16,8 @@ before_install:
 
 script:
   - make build
+  - ls -l
+  - ls -l bin/
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
