@@ -3,13 +3,32 @@
 # Telega CLI
 Console telegram sender.
 
+## Build
+```
+make deps
+make ok
+make build
+```
+
 ## Send message
 
 ```
-telegacli send <chatId> <message> --token <botId>:<token>
+bin/telegacli send <chatId> <message> --token <botId>:<token>
 ```
 Or
 
 ```
-TGTOKEN=<botId>:<token> telegacli send <chatId> <message>
+TGTOKEN=<botId>:<token> bin/telegacli send <chatId> <message>
+```
+
+## Docker
+
+Pull image
+```
+docker pull strebul/telegacli:latest
+```
+
+Run
+```
+docker run strebul/telegacli:latest send <chatId> <message> --token <botId>:<token>
 ```
