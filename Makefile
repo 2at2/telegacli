@@ -23,7 +23,7 @@ deps: ## Download required dependencies
 	@go get ./...
 
 build: ## Builds telegacli
-	@GOOS="linux" GOARCH="amd64" go build -o bin/telegacli main/main.go
+	@GOOS="linux" GOARCH="amd64" go build -o bin/telegacli main.go
 
 help:
 	@grep --extended-regexp '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
