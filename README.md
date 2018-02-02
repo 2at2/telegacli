@@ -1,0 +1,2 @@
+# telegacli
+Console telegram sender
