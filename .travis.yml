@@ -19,10 +19,8 @@ script:
 after_success:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    docker build -t strebul/telegacli:latest . && docker push strebul/telegacli:latest;
+      docker build -t strebul/telegacli:latest . && docker push strebul/telegacli:latest;
+    elif [ $(echo "$TRAVIS_BRANCH" | cut -c 1-7) == "release" ]; then
+      tag=$(echo "$TRAVIS_BRANCH" | cut -c 9-);
+      docker build -t strebul/telegacli:$tag . && docker push strebul/telegacli:$tag;
     fi
-  - if [ $(echo "$TRAVIS_BRANCH" | cut -c 1-7) == "release" ]; then
-    tag=$(echo "$TRAVIS_BRANCH" | cut -c 9-)
-    docker build -t strebul/telegacli:$tag . && docker push strebul/telegacli:$tag;
-    fi
-
