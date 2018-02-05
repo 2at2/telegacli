@@ -1,12 +1,12 @@
-FROM golang:1.9.2-alpine3.6
-
+FROM strebul/go-builder1.9.2-alpine3.6 as builder
 WORKDIR /go/src/github.com/2at2/telegacli
-
 COPY . .
-
-RUN apk add --no-cache ca-certificates make git \
+RUN set -ex \
     && make deps \
     && make ok \
-    && make release
+    && make build
 
-ENTRYPOINT ["bin/telegacli"]
+
+FROM alpine:3.6
+COPY --from=builder /go/src/github.com/2at2/telegacli/bin/telegacli /usr/bin/telegacli
+ENTRYPOINT ["telegacli"]
