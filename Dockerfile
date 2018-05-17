@@ -9,4 +9,8 @@ RUN set -ex \
 
 FROM alpine:3.6
 COPY --from=builder /go/src/github.com/2at2/telegacli/bin/telegacli /usr/bin/telegacli
+RUN set -ex \
+    && apk add --no-cache ca-certificates \
+    && rm -rf /var/cache/apk/* \
+    && rm -rf /tmp/*
 ENTRYPOINT ["telegacli"]
